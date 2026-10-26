@@ -28,9 +28,10 @@
         -Server
     }
 
-    # Proxy a la API del banco (evita el CORS)
+    # Proxy a la API del banco (evita CORS y el 403 de Incapsula)
     reverse_proxy /Api-portalDavivienda/* https://www.davivienda.com.sv {
         header_up Host www.davivienda.com.sv
+        header_up Origin https://www.davivienda.com.sv
     }
 
     root * .
