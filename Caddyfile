@@ -28,10 +28,14 @@
         -Server
     }
 
-    # Proxy a la API del banco (evita CORS y el 403 de Incapsula)
+    # Proxy a la API del banco (User-Agent de navegador obligatorio)
     reverse_proxy /Api-portalDavivienda/* https://www.davivienda.com.sv {
         header_up Host www.davivienda.com.sv
         header_up Origin https://www.davivienda.com.sv
+        header_up Referer https://www.davivienda.com.sv/
+        header_up User-Agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+        header_up Accept "application/json, text/plain, */*"
+        header_up Accept-Language "es-ES,es;q=0.9,en;q=0.8"
     }
 
     root * .
