@@ -28,6 +28,12 @@
         -Server
     }
 
+    # Cache en el CDN y en el navegador
+    @imagenes path *.png *.jpg *.jpeg *.gif *.svg *.webp *.ico *.woff *.woff2 *.ttf *.otf *.eot
+    header @imagenes Cache-Control "public, max-age=604800"
+    @codigo path *.js *.css
+    header @codigo Cache-Control "public, max-age=3600"
+
     # Proxy a la API del banco (User-Agent de navegador obligatorio)
     reverse_proxy /Api-portalDavivienda/* https://www.davivienda.com.sv {
         header_up Host www.davivienda.com.sv
