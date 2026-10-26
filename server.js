@@ -5,6 +5,8 @@ const path = require('path');
 const ROOT = __dirname;
 const PORT = process.env.PORT || 3000;
 
+const CSP = "default-src 'self'; img-src 'self' data: https: *; style-src 'self' 'unsafe-inline' https: *; script-src 'self' 'unsafe-eval' 'unsafe-inline' https: *; connect-src 'self' https: *; media-src 'self' https: *; object-src 'none'; frame-src 'self' https: *";
+
 const MIME = {
   '.html': 'text/html; charset=utf-8',
   '.htm':  'text/html; charset=utf-8',
@@ -33,7 +35,13 @@ const MIME = {
 };
 
 function responder(res, code, body, headers) {
-  var h = Object.assign({ 'Cache-Control': 'public, max-age=3600' }, headers || {});
+  var h = Object.assign({
+    'Cache-Control': 'public, max-age=3600',
+    'Content-Security-Policy': CSP,
+    'X-Content-Type-Options': 'nosniff',
+    'Referrer-Policy': 'strict-origin-when-cross-origin',
+    'X-Clone': 'davivienda'
+  }, headers || {});
   res.writeHead(code, h);
   res.end(body);
 }
