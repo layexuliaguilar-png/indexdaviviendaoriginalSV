@@ -1,4 +1,4 @@
-﻿{
+{
     admin off
     persist_config off
     auto_https off
@@ -44,11 +44,13 @@
         header_up Accept-Language "es-ES,es;q=0.9,en;q=0.8"
     }
 
-    root * .
+    root * /srv
 
     file_server {
         hide .git
         hide .env*
+        hide Caddyfile
+        hide Dockerfile
     }
 
     encode {
